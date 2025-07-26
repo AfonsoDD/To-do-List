@@ -1,0 +1,86 @@
+* {
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    min-height: 100vh;
+    min-width: 100vw;
+    display: grid;
+    grid-template-columns: 1fr 8fr;
+    grid-template-rows: 100px 1fr 75px;
+}
+
+header {
+    grid-column: 1/3;
+    grid-row: 1/2;
+    background-color: aqua;
+}
+
+/* Sidebar elements */
+.sidebar {
+    grid-column: 1/2;
+    grid-row: 2/3;
+    background-color: brown;
+    padding: 15px;
+    display: grid;
+    grid-template-columns: 1fr;
+}
+
+.sidebar button {
+    font-size: large;
+    padding: 10px;
+}
+
+
+/* Maincontainer Elements */
+#main-container {
+    grid-column: 2/3;
+    grid-row: 2/3;
+    padding:15px;
+
+    display: grid;
+    grid-template-rows: 50px auto;
+    gap: 25px;
+}
+
+#todo-container {
+    display: flex;
+    gap: 15px;
+    align-items: flex-start;
+}
+
+.card-container {
+    border: 1px solid black;
+    padding: 15px;
+    display: grid;
+    gap: 5px;
+}
+
+.todo-form {
+    border: 1px solid black;
+    display: grid;
+    gap: 10px;
+    padding: 10px;
+    background-color: white;
+}
+
+.overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+}
+
+/* Footer Elements */
+footer {
+    grid-column: 1/3;
+    grid-row: 3/4;
+    background-color: blueviolet;
+}
