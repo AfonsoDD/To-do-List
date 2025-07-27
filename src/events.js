@@ -1,6 +1,7 @@
 // Event Handler Module:
 
-import { showTodoForm } from "./dommanipulation";
+import { appendNewTodo, showTodoForm, deleteTodo } from "./dommanipulation";
+import { Todo} from "./classes";
 
 function setEvents () {
 
@@ -22,22 +23,41 @@ function exitForms () {
     })
 }
 
-/* WIP
+function submitForms (activeList) {
 
-function submitForms () {
+    document.addEventListener("submit", (e) => {
+        e.preventDefault();
 
-    const submitTodo = document.querySelector('.todo-form');
+        const todoForm = document.querySelector('.todo-form');
 
-    document.addEventListener("submit", () => {
-
-        const title = submitTodo.title
-
+        if (todoForm) {
+            const title = todoForm.elements["todo-title"].value;
+            const description = todoForm.elements["todo-description"].value;
+            const priority = todoForm.elements["priority-option"].value;
+            const newTodo = new Todo(title, description, "08/08/2025", priority)
+            appendNewTodo(activeList, newTodo)
+            document.querySelector(".overlay").remove()
+        }
     })
+
+    // need to add the project logic, will do after state manager
 }
 
-*/
+function deleteTodoButton (activeList) {
 
-export { setEvents, exitForms }
+    document.addEventListener("click", (e) => {
+
+        if (e.target.matches(".todo-delete")) {
+            const card = e.target.closest("[data-id]");
+            const id = card.getAttribute("data-id");
+            deleteTodo(activeList, id);
+        }
+    });
+}
+
+
+
+export { setEvents, exitForms, submitForms, deleteTodoButton }
 
 
 // const todoForm = document.querySelector(".todo-form");

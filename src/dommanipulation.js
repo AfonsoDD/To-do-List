@@ -13,7 +13,7 @@ function createTodoCard (todoObject) { // obviously takes a Todo object
         <p class="todo-title">${todoObject.title}</p>
         <p class="todo-description">${todoObject.description}</p>
         <p class="todo-priority">${todoObject.priority}</p>
-        <button class="delete">Delete</button>`
+        <button class="todo-delete">Delete</button>`
 
     todoContainer.appendChild(todoCard); // appends the div to the correct container
 }
@@ -42,16 +42,16 @@ function appendNewTodo (todoList, todoObject) {
 // 3. Delete functionality
 
     // 3.1 Delete one To-do Object:
-function deleteTodo (todoList, todoObject) {
+function deleteTodo (todoList, id) {
 
     // Delete To-do item from the array it lives in
-    const index = todoList.findIndex( object => object.id === todoObject.id);
+    const index = todoList.findIndex( object => object.id === id);
     if (index !== -1) {
         todoList.splice(index, 1);
     }
 
     // Delete To-do container from the UI
-    const todoElement = document.querySelector(`[data-id=${todoObject.id}]`);
+    const todoElement = document.querySelector(`[data-id="${id}"]`);
     if (todoElement) {
         todoElement.remove();
     }
@@ -67,17 +67,17 @@ function showTodoForm () { // this should go to the dom file
     todoForm.classList.add("todo-form")
     todoForm.innerHTML = `
     <input type="text" name="todo-title" placeholder="New To-do" minlength="3" maxlength="25" required>
-    <textarea maxlength="200">Describe the To-do you want to add</textarea>
+    <textarea name="todo-description" maxlength="200">Describe the To-do you want to add</textarea>
     <div>
-        <input type="radio" id="low-prio" name="priority-option" value="low-prio">
+        <input type="radio" id="low-prio" name="priority-option" value="Low">
         <label for="low-prio">Low</label>
     </div>
     <div>
-        <input type="radio" id="medium-prio" name="priority-option" value="medium-prio">
+        <input type="radio" id="medium-prio" name="priority-option" value="Medium">
         <label for="low-prio">Medium</label>
     </div>
     <div>
-        <input type="radio" id="high-prio" name="priority-option" value="high-prio">
+        <input type="radio" id="high-prio" name="priority-option" value="High">
         <label for="low-prio">High</label>
     </div>
     <button type="submit">Add</button>

@@ -1,6 +1,6 @@
 import { Todo, Project } from "./classes.js";
 import { createTodoCard, appendTodos, appendNewTodo, deleteTodo, showTodoForm } from "./dommanipulation.js";
-import { setEvents, exitForms} from "./events.js"
+import { setEvents, exitForms, submitForms, deleteTodoButton} from "./events.js"
 import './styles.css';
 
 // Step 1 - Test some fake To-dos for 1 project
@@ -24,9 +24,13 @@ window.projectOne = projectOne;
 
 appendTodos(projectOne.listOfTodos);
 
-setEvents()
+setEvents();
 
-exitForms()
+exitForms();
+
+submitForms(projectOne.listOfTodos);
+
+deleteTodoButton(projectOne.listOfTodos);
 
 
 
