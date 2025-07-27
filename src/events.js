@@ -1,14 +1,20 @@
 // Event Handler Module:
 
-import { appendNewTodo, showTodoForm, deleteTodo } from "./dommanipulation";
-import { Todo} from "./classes";
+import { appendNewTodo, appendNewProject, showTodoForm, deleteTodo, showProjectForm, appendTodos } from "./dommanipulation";
+import { Todo, Project } from "./classes";
+import { projectManager } from "./statemanager.js";
+
+const manager = projectManager() // initilizes the manager object, I do it here to centralize everything
+
+window.manager = manager // FOR TESTING
 
 function setEvents () {
 
     const addTodo = document.querySelector(".add-todo");
     addTodo.addEventListener("click", showTodoForm);
 
-    // Missing Project creation and association with respective button;
+    const addProject = document.querySelector(".add-project");
+    addProject.addEventListener("click", showProjectForm);
 }
 
 function exitForms () {
@@ -29,6 +35,7 @@ function submitForms (activeList) {
         e.preventDefault();
 
         const todoForm = document.querySelector('.todo-form');
+        const projectForm = document.querySelector('.project-form');
 
         if (todoForm) {
             const title = todoForm.elements["todo-title"].value;
@@ -37,6 +44,17 @@ function submitForms (activeList) {
             const newTodo = new Todo(title, description, "08/08/2025", priority)
             appendNewTodo(activeList, newTodo)
             document.querySelector(".overlay").remove()
+        }
+
+        if (projectForm) {
+            const name = projectForm.elements["project-name"].value;
+            const description = projectForm.elements["project-description"].value;
+            const newProject = new Project(name, description);
+
+            manager.addProject(newProject);
+            appendNewProject(newProject);
+            document.querySelector(".overlay").remove();
+            appendTodos(newProject.listOfTodos); // immediatelly shows the project created
         }
     })
 
@@ -55,9 +73,18 @@ function deleteTodoButton (activeList) {
     });
 }
 
+/* WIP
+function selectProject () {
+
+    document.addEventListener("click", (e) => {
+
+    })
+
+}
+*/
 
 
-export { setEvents, exitForms, submitForms, deleteTodoButton }
+export { setEvents, exitForms, submitForms, deleteTodoButton, manager }
 
 
 // const todoForm = document.querySelector(".todo-form");

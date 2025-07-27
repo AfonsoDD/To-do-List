@@ -17,6 +17,10 @@ header {
     background-color: aqua;
 }
 
+li {
+    list-style-type: none;
+}
+
 /* Sidebar elements */
 .sidebar {
     grid-column: 1/2;
@@ -30,6 +34,34 @@ header {
 .sidebar button {
     font-size: large;
     padding: 10px;
+    min-width: 100px;
+    height: 50px;
+}
+
+.project-container {
+    border: 1px solid black;
+    border-radius: 10px;
+    display: grid;
+    gap: 10px;
+    grid-template-rows: 20px;
+}
+
+.project-list {
+    border: 1px solid black;
+    border-radius:10px;
+    padding: 10px;
+    font-size: large;
+    font-weight: bold;
+    display: grid;
+    grid-template-rows: auto;
+    gap: 5px;
+    align-items: start;
+}
+
+.project-list p {
+    background-color: white;
+    border-radius: 5px;
+    min-width: 100px;
 }
 
 
@@ -42,6 +74,13 @@ header {
     display: grid;
     grid-template-rows: 50px auto;
     gap: 25px;
+}
+
+.project-information {
+    display: flex;
+    gap: 50px;
+    border-bottom: 1px solid black;
+    padding: 10px;
 }
 
 #todo-container {
@@ -57,7 +96,7 @@ header {
     gap: 5px;
 }
 
-.todo-form {
+form {
     border: 1px solid black;
     display: grid;
     gap: 10px;

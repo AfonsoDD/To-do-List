@@ -1,5 +1,7 @@
 // DOM Manipulation Module:
 
+import projectManager from './statemanager'
+
 // 1. Function that creates a "Card" (a div) for a To-do based on a Todo object (defined in classes.js);
 function createTodoCard (todoObject) { // obviously takes a Todo object
     
@@ -93,8 +95,32 @@ function addOverlay() {
     overlay.classList.add("overlay");
     body.appendChild(overlay);
     return overlay;
-}  
-    
+}
 
-export { createTodoCard, appendTodos, appendNewTodo, deleteTodo, showTodoForm, addOverlay }
+// Function that Creates a Project
+
+function showProjectForm () {
+
+    const overlay = addOverlay()
+    const projectForm = document.createElement("form");
+    projectForm.classList.add("project-form");
+    projectForm.innerHTML = `
+    <input type="text" name="project-name" placeholder="New Project" minlength="3" maxlength="25" required>
+    <textarea name="project-description" maxlength="200">Describe your project</textarea>
+    <button type="submit">Add</button>
+    `
+    overlay.appendChild(projectForm);
+}
+
+function appendNewProject (projectObject) {
+    const projectListUI = document.querySelector(".project-list");
+    const newProject = document.createElement("p");
+    newProject.setAttribute("data-id", projectObject.id);
+    newProject.innerText = `${projectObject.name}`;
+    projectListUI.appendChild(newProject); // adds the project to the UI
+   // Need to add the project to the list of projects
+}
+
+
+export { createTodoCard, appendTodos, appendNewTodo, deleteTodo, showTodoForm, addOverlay, showProjectForm, appendNewProject }
 

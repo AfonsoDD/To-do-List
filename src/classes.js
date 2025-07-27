@@ -11,9 +11,11 @@ class Todo {
 }
 
 class Project {
-    constructor (name) {
+    constructor (name, description) {
         this.name = name;
         this.listOfTodos = [];
+        this.description = this.description;
+        this.id = crypto.randomUUID();
     }
 
     // methods to add
