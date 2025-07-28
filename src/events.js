@@ -1,10 +1,11 @@
 // Event Handler Module:
 
-import { appendNewTodo, appendNewProject, showTodoForm, deleteTodo, showProjectForm, appendTodos } from "./dommanipulation";
+import { appendNewTodo, appendNewProject, showTodoForm, deleteTodo, showProjectForm, appendTodos, updateProjectDisplay} from "./dommanipulation";
 import { Todo, Project } from "./classes";
 import { projectManager } from "./statemanager.js";
 
 const manager = projectManager() // initilizes the manager object, I do it here to centralize everything
+
 
 window.manager = manager // FOR TESTING
 
@@ -29,7 +30,7 @@ function exitForms () {
     })
 }
 
-function submitForms (activeList) {
+function submitForms () {
 
     document.addEventListener("submit", (e) => {
         e.preventDefault();
@@ -38,6 +39,7 @@ function submitForms (activeList) {
         const projectForm = document.querySelector('.project-form');
 
         if (todoForm) {
+            const activeList = manager.getActiveProject().listOfTodos;
             const title = todoForm.elements["todo-title"].value;
             const description = todoForm.elements["todo-description"].value;
             const priority = todoForm.elements["priority-option"].value;
@@ -54,23 +56,36 @@ function submitForms (activeList) {
             manager.addProject(newProject);
             appendNewProject(newProject);
             document.querySelector(".overlay").remove();
-            appendTodos(newProject.listOfTodos); // immediatelly shows the project created
+            appendTodos(newProject); // immediatelly shows the project created
+            manager.setActiveProject(newProject);
         }
     })
-
-    // need to add the project logic, will do after state manager
 }
 
-function deleteTodoButton (activeList) {
+function deleteTodoButton () {
 
     document.addEventListener("click", (e) => {
 
         if (e.target.matches(".todo-delete")) {
+            const activeList = manager.getActiveProject().listOfTodos;
             const card = e.target.closest("[data-id]");
             const id = card.getAttribute("data-id");
             deleteTodo(activeList, id);
         }
     });
+}
+
+function selectProject () {
+    
+    document.addEventListener("click", (e) => {
+        if (e.target.matches(".project-list p")) {
+            const projectClickedID = e.target.closest('[data-id]').dataset.id;
+            const projectToDisplay = manager.getAllProjects().find( a => a.id === projectClickedID)
+            appendTodos(projectToDisplay);
+            updateProjectDisplay(projectToDisplay);
+            manager.setActiveProject(projectToDisplay);
+        }
+    })
 }
 
 /* WIP
@@ -84,7 +99,7 @@ function selectProject () {
 */
 
 
-export { setEvents, exitForms, submitForms, deleteTodoButton, manager }
+export { setEvents, exitForms, submitForms, deleteTodoButton, selectProject, manager }
 
 
 // const todoForm = document.querySelector(".todo-form");

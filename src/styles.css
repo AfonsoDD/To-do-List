@@ -79,7 +79,7 @@ li {
 .project-information {
     display: flex;
     gap: 50px;
-    border-bottom: 1px solid black;
+    border-bottom: 2px solid rgb(85, 85, 85);
     padding: 10px;
 }
 

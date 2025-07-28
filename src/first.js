@@ -1,6 +1,6 @@
 import { Todo, Project } from "./classes.js";
 import { createTodoCard, appendTodos, appendNewTodo, deleteTodo, showTodoForm } from "./dommanipulation.js";
-import { setEvents, exitForms, submitForms, deleteTodoButton, manager} from "./events.js"
+import { setEvents, exitForms, submitForms, deleteTodoButton, manager, selectProject} from "./events.js"
 
 
 import './styles.css';
@@ -24,13 +24,16 @@ window.todoTwo = todoTwo;
 window.todoOne = todoOne;
 window.todoThree = todoThree;
 
-const projectOne = new Project("Project One");
-const projectTwo = new Project("Project Two");
-const projectThree = new Project("Project Three");
+const projectOne = new Project("Project 1");
+const projectTwo = new Project("Project 2");
+const projectThree = new Project("Project 3");
 
 manager.addProject(projectOne);
 manager.addProject(projectTwo);
 manager.addProject(projectThree);
+
+manager.setActiveProject(projectOne);
+console.log(manager.getActiveProject())
 
 projectOne.addTodo(todoOne); // works
 projectOne.addTodo(todoTwo);
@@ -50,11 +53,22 @@ window.projectOne = projectOne;
 window.projectTwo = projectTwo;
 window.projectThree = projectThree;
 
-appendTodos(projectOne.listOfTodos);
+const projectOneElement = document.querySelector(".project-one");
+projectOneElement.setAttribute("data-id", projectOne.id);
+
+const projectTwoElement = document.querySelector(".project-two");
+projectTwoElement.setAttribute("data-id", projectTwo.id);
+
+const projectThreeElement = document.querySelector(".project-three");
+projectThreeElement.setAttribute("data-id", projectThree.id);
+
+appendTodos(projectOne);
 
 setEvents();
 
 exitForms();
+
+selectProject();
 
 submitForms(projectOne.listOfTodos);
 

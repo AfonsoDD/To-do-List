@@ -8,16 +8,25 @@ function assignActiveList (todoList) { // updates the active list
 function projectManager () {
     
     const listOfProjects = [];
+    let activeProject = listOfProjects[0];
 
     function addProject(projectObject) {
         listOfProjects.push(projectObject);
     }
 
-    function getProjects () {
+    function getAllProjects () {
         return listOfProjects
     }
 
-    return { addProject, getProjects };
+    function setActiveProject (project) {
+        activeProject = project;
+    }
+
+    function getActiveProject () {
+        return activeProject;
+    }
+
+    return { addProject, getAllProjects, setActiveProject, getActiveProject };
 }
 
-export { projectManager }
+export { projectManager, assignActiveList }

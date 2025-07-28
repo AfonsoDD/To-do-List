@@ -14,7 +14,7 @@ class Project {
     constructor (name, description) {
         this.name = name;
         this.listOfTodos = [];
-        this.description = this.description;
+        this.description = description;
         this.id = crypto.randomUUID();
     }
 

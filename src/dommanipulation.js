@@ -13,6 +13,7 @@ function createTodoCard (todoObject) { // obviously takes a Todo object
     // Generates the content of the card based on the object given
     todoCard.innerHTML = `
         <p class="todo-title">${todoObject.title}</p>
+        <button class="edit">Edit</button>
         <p class="todo-description">${todoObject.description}</p>
         <p class="todo-priority">${todoObject.priority}</p>
         <button class="todo-delete">Delete</button>`
@@ -23,12 +24,12 @@ function createTodoCard (todoObject) { // obviously takes a Todo object
 // 2. A simple iterator for an object. Here it creates a card for every todo in a todo list;
 
     // 2.1 The loader - Function that loads the UI with the current To-do List;
-function appendTodos (todoList) { // takes an array as an argument
+function appendTodos (projectObject) { // takes an array as an argument
     
     const todoContainer = document.querySelector("#todo-container");
     todoContainer.innerHTML = "";
     
-    todoList.forEach(todoObject => createTodoCard(todoObject))
+    projectObject.listOfTodos.forEach(todoObject => createTodoCard(todoObject))
 }
 
     // 2.2 The adder - Function that appends a new To-do Item to an already existing list;
@@ -47,7 +48,7 @@ function appendNewTodo (todoList, todoObject) {
 function deleteTodo (todoList, id) {
 
     // Delete To-do item from the array it lives in
-    const index = todoList.findIndex( object => object.id === id);
+    const index = todoList.findIndex(object => object.id === id);
     if (index !== -1) {
         todoList.splice(index, 1);
     }
@@ -71,7 +72,7 @@ function showTodoForm () { // this should go to the dom file
     <input type="text" name="todo-title" placeholder="New To-do" minlength="3" maxlength="25" required>
     <textarea name="todo-description" maxlength="200">Describe the To-do you want to add</textarea>
     <div>
-        <input type="radio" id="low-prio" name="priority-option" value="Low">
+        <input type="radio" id="low-prio" name="priority-option" value="Low" checked>
         <label for="low-prio">Low</label>
     </div>
     <div>
@@ -118,9 +119,16 @@ function appendNewProject (projectObject) {
     newProject.setAttribute("data-id", projectObject.id);
     newProject.innerText = `${projectObject.name}`;
     projectListUI.appendChild(newProject); // adds the project to the UI
-   // Need to add the project to the list of projects
+    updateProjectDisplay(projectObject)
+}
+
+function updateProjectDisplay (projectObject) {
+
+    const projectName = projectObject.name;
+    const projectDisplayed = document.querySelector(".project-name");
+    projectDisplayed.innerHTML = projectName;
 }
 
 
-export { createTodoCard, appendTodos, appendNewTodo, deleteTodo, showTodoForm, addOverlay, showProjectForm, appendNewProject }
+export { createTodoCard, appendTodos, appendNewTodo, deleteTodo, showTodoForm, addOverlay, showProjectForm, appendNewProject, updateProjectDisplay }
 
